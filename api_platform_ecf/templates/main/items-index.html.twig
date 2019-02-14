@@ -1,0 +1,11 @@
+{# templates/main/items-index.html.twig #}
+{% block title %}Liste des items{% endblock %}
+{% block body %}
+<h1>Liste des items</h1>
+
+<ul>
+{% for item in items %}
+    <li><a href="/item/{{item.id}}">{{ item.name }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}
