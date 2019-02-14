@@ -23,4 +23,13 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+    /**
+     * @Route("/secured", name="main_secured")
+     */
+    public function secured(Request $request)
+    {
+        return $this->render('main/secured.html.twig', [
+            // ...
+        ]);
+    }
 }
