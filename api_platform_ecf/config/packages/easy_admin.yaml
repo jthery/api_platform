@@ -1,6 +1,17 @@
-#easy_admin:
-#    entities:
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
+easy_admin:
+  entities:
+          Promotion:
+                class: App\Entity\Promotion
+                form:
+                  fields: 
+                      - "name"
+                      - "createdAt"
+                      - "dateEnd"
+                      - { property: 'students', type: 'entity', type_options: { choice_label: 'firstname'}}
+          Student:     
+                class:  App\Entity\Student
+                form:
+                  fields: 
+                      - "firstname"
+                      - "lastname"
+                      - { property: 'promotion', type: 'entity', type_options: { choice_label: 'name'}}
