@@ -174,6 +174,12 @@ use Doctrine\DBAL\Connection;
     }
 ```
 
+### 13 . Ajouter le Bundle Request, car sinon cela nous posera problème, à ajouter dans le fichier MainController
+
+```
+use Symfony\Component\HttpFoundation\Request;
+```
+
 ### 13 . Il faut aussi créer un template qui peut afficher les données de la requête SQL. Dans le dossier templates/main, créer le fichier items-index.html.twig :
 
 ```
@@ -224,8 +230,70 @@ use Doctrine\DBAL\Connection;
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/secured, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
 ```
 
 ### 17 . 
 
+
+
+
+
+
+### mettre à jour PHP, afin de faire fonctionner composer sur le VPS.
+
+### 1 . se connecter à votre VPS
+
+```
+ssh jthery@thery-ble.com
+```
+
+### 2 . aller dans le fichier etc/apt/ et taper :
+
+```
+sudo nano sources.list
+```
+
+- une fois dedans, modifier les "stretch" par "testing", enregistrer, quitter.
+
+### 3 . taper les commande suivante : 
+
+```
+sudo apt upgrade
+sudo apt dist-upgrade
+
+```
+
+il va vous demander si vous souhaiter restart, acceptez.
+
+### 4 . Installer composer sur le VPS
+
+```
+$ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+$ php -r "if (hash_file('sha384', 'composer-setup.php') === '48e3236262b34d30969dca3c37281b3b4bbe3221bda826ac6a9a62d6444cdb0dcd0615698a5cbe587c3f0fe57a54d8f5') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+$ php composer-setup.php
+$ php -r "unlink('composer-setup.php');"
+```
+
+```
+$ mv composer.phar /usr/local/bin/composer
+```
+
+vérifier que composer est bien installé, et fonctionne:
+```
+composer -V
+```
+
+### 5 . Afin de faire fonctionner symfony, installer php-curl et php-zip
+
+```
+sudo apt-get install php-curl
+sudo service apache2 restart
+sudo apt install php-zip
+```
+
+### 6 . Cloner le dossier concerné, et exécutez le code suivant :
+
+```
+composer install
+```
